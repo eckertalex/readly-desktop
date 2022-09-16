@@ -1,0 +1,67 @@
+{
+	"name": "readly-desktop",
+	"version": "0.1.0",
+	"private": true,
+	"author": "Alexander Eckert <eckertalex@pm.me> (https://eckertalex.dev/)",
+	"license": "MIT",
+	"scripts": {
+		"dev": "vite",
+		"build": "vite build",
+		"preview": "vite preview",
+		"tauri": "tauri",
+		"release": "standard-version",
+		"release:minor": "standard-version --release-as minor",
+		"release:patch": "standard-version --release-as patch",
+		"release:major": "standard-version --release-as major",
+		"format": "prettier -uw --cache --ignore-path .gitignore .",
+		"typecheck": "tsc",
+		"lint": "cross-env TIMING=1 eslint --cache --fix --ignore-path .gitignore --ext .ts,.tsx,.js,.jsx .",
+		"validate": "run-p format lint typecheck",
+		"prepare": "husky install"
+	},
+	"lint-staged": {
+		"*": "prettier -uw --cache",
+		"*.+(js|jsx|ts|tsx)": [
+			"cross-env TIMING=1 eslint --cache --fix"
+		]
+	},
+	"dependencies": {
+		"@chakra-ui/react": "^2.3.2",
+		"@emotion/react": "^11",
+		"@emotion/styled": "^11",
+		"@tauri-apps/api": "^1.1.0",
+		"epubjs": "^0.3.93",
+		"framer-motion": "^6",
+		"lucide-react": "0.89.0",
+		"react": "^18.2.0",
+		"react-dom": "^18.2.0",
+		"react-router-dom": "^6.4.0",
+		"zustand": "^4.1.1"
+	},
+	"devDependencies": {
+		"@commitlint/cli": "17.1.2",
+		"@commitlint/config-conventional": "17.1.0",
+		"@nabla/vite-plugin-eslint": "^1.4.1",
+		"@tauri-apps/cli": "^1.1.0",
+		"@types/node": "18.7.18",
+		"@types/react": "18.0.20",
+		"@types/react-dom": "18.0.6",
+		"@vitejs/plugin-react": "^2.0.0",
+		"cross-env": "^7.0.3",
+		"eslint": "^8.23.1",
+		"eslint-config-prettier": "8.5.0",
+		"eslint-config-react-app": "^7.0.1",
+		"eslint-plugin-prettier": "4.2.1",
+		"husky": "^8.0.0",
+		"lint-staged": "13.0.3",
+		"npm-run-all": "4.1.5",
+		"prettier": "2.7.1",
+		"standard-version": "9.5.0",
+		"typescript": "4.8.3",
+		"vite": "^3.1.1"
+	},
+	"volta": {
+		"node": "16.17.0",
+		"yarn": "1.22.19"
+	}
+}
