@@ -1,7 +1,7 @@
 import Epub, {Book, Rendition} from 'epubjs'
 import {useCallback, useEffect, useRef, useState} from 'react'
 import shallow from 'zustand/shallow'
-import {useEpubStore} from '../use-epub-store'
+import {useEpubStore} from './use-epub-store'
 
 type Options = {
 	url: string
@@ -56,7 +56,6 @@ export function useEpub(options: Options) {
 		})
 	}, [url, setMetadata, setCoverUrl, updateToc])
 
-	// save in persist state
 	const locationChange = useCallback(
 		(loc: Location) => {
 			setLocation(loc.start)

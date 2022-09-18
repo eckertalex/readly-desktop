@@ -1,5 +1,5 @@
 import {Box, Flex, Spinner} from '@chakra-ui/react'
-import {useEpub} from './use-epub'
+import {useEpub} from '../use-epub'
 import {TopBar} from './top-bar'
 import {Pagination} from './pagination'
 import {Modals} from '../modals/modals'

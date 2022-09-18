@@ -1,27 +1,35 @@
 import {ChakraProvider} from '@chakra-ui/react'
 import {lazy, Suspense} from 'react'
-import {createBrowserRouter, createRoutesFromElements, Outlet, Route, RouterProvider} from 'react-router-dom'
+import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
 import {Fallback} from './routes/fallback'
+import {Home} from './routes/home'
 import {Layout} from './routes/layout'
+import Read from './routes/read'
 import {RootErrorBoundary} from './routes/root-error-boundary'
 
-const Read = lazy(() => import('./routes/read'))
+// const Read = lazy(() => import('./routes/read'))
 const NotFound = lazy(() => import('./routes/not-found'))
 
 export const router = createBrowserRouter(
 	createRoutesFromElements(
-		<Route path="/" element={<Layout />}>
-			<Route path="" element={<Outlet />} errorElement={<RootErrorBoundary />}>
-				<Route
-					path="read"
-					element={
-						<Suspense fallback={<Fallback />}>
-							<Read />
-						</Suspense>
-					}
-				/>
-			</Route>
-			<Route path="*" element={<NotFound />} />
+		<Route path="/" element={<Layout />} errorElement={<RootErrorBoundary />}>
+			<Route path="" element={<Home />} />
+			<Route
+				path="read"
+				element={
+					// <Suspense fallback={<Fallback />}>
+					<Read />
+					// </Suspense>
+				}
+			/>
+			<Route
+				path="*"
+				element={
+					<Suspense fallback={<Fallback />}>
+						<NotFound />
+					</Suspense>
+				}
+			/>
 		</Route>
 	)
 )
