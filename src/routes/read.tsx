@@ -1,8 +1,21 @@
+import {BaseDirectory, readBinaryFile} from '@tauri-apps/api/fs'
+import {useLoaderData, LoaderFunctionArgs} from 'react-router-dom'
 import {EpubReader} from '../features/epub/reader/epub-reader'
 
-const EPUB_FILE = '/Way of Kings (The Stormlight Archive, Book 1), The - Brandon Sanderson.epub'
-// const EPUB_FILE = '/alice.epub'
+export async function loader({params}: LoaderFunctionArgs) {
+	const {url} = params
+	console.log('url', url)
+
+	if (!url) {
+		throw new Response('Not Found', {status: 404})
+	}
+
+	const contents = await readBinaryFile(`epubs/${url}`, {dir: BaseDirectory.Document})
+	return contents
+}
 
 export default function Read() {
-	return <EpubReader url={EPUB_FILE} />
+	const url = useLoaderData() as string
+
+	return <EpubReader url={url} />
 }

@@ -1,22 +1,23 @@
 import {Image, Tooltip} from '@chakra-ui/react'
 import {Link as RouterLink} from 'react-router-dom'
+import {useLoadEpub} from '../use-load-epub'
 import {BookPlaceholder} from './book-placeholder'
 
 type BookItemProps = {
-	coverUrl?: string
-	title?: string
-	author?: string
+	url: ArrayBuffer
+	name: string
 }
 
 export function BookItem(props: BookItemProps) {
-	const {coverUrl, title, author} = props
+	const {url, name} = props
+	const {title, author, coverUrl} = useLoadEpub({url})
 
 	if (!coverUrl) {
 		return <BookPlaceholder title={title} author={author} />
 	}
 
 	return (
-		<RouterLink to="read">
+		<RouterLink to={name}>
 			<Tooltip label={`${title} by ${author}`} hasArrow placement="top">
 				<Image src={coverUrl} alt={`${title} by ${author}`} objectFit="contain" />
 			</Tooltip>

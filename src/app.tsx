@@ -2,9 +2,9 @@ import {ChakraProvider} from '@chakra-ui/react'
 import {lazy, Suspense} from 'react'
 import {createBrowserRouter, createRoutesFromElements, Route, RouterProvider} from 'react-router-dom'
 import {Fallback} from './routes/fallback'
-import {Home} from './routes/home'
+import {Home, loader as homeLoader} from './routes/home'
 import {Layout} from './routes/layout'
-import Read from './routes/read'
+import Read, {loader as readLoader} from './routes/read'
 import {RootErrorBoundary} from './routes/root-error-boundary'
 
 // const Read = lazy(() => import('./routes/read'))
@@ -13,9 +13,10 @@ const NotFound = lazy(() => import('./routes/not-found'))
 export const router = createBrowserRouter(
 	createRoutesFromElements(
 		<Route path="/" element={<Layout />} errorElement={<RootErrorBoundary />}>
-			<Route path="" element={<Home />} />
+			<Route path="" element={<Home />} loader={homeLoader} />
 			<Route
-				path="read"
+				path=":url"
+				loader={readLoader}
 				element={
 					// <Suspense fallback={<Fallback />}>
 					<Read />
