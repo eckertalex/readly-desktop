@@ -6,12 +6,12 @@ import {Modals} from '../modals/modals'
 import {useCallback} from 'react'
 
 type EpubReaderProps = {
-	url: string
+	buffer: ArrayBuffer | string
 }
 
 export function EpubReader(props: EpubReaderProps) {
-	const {url} = props
-	const [viewerRef, {isLoading, renditionRef}] = useEpub({url})
+	const {buffer} = props
+	const [viewerRef, {isLoading, renditionRef}] = useEpub({buffer})
 
 	const updateFontSize = useCallback((size: string) => renditionRef.current?.themes.fontSize(size), [renditionRef])
 	const prev = useCallback(() => renditionRef.current?.prev(), [renditionRef])

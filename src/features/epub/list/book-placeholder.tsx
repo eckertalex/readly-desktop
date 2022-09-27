@@ -1,9 +1,8 @@
-import {Box, Text, Flex, AspectRatio, Tooltip} from '@chakra-ui/react'
-import {Link as RouterLink} from 'react-router-dom'
+import {Box, Text, Flex, AspectRatio} from '@chakra-ui/react'
 
 type BookPlaceholderProps = {
-	title?: string
-	author?: string
+	title: string
+	author: string
 }
 
 const backgroundImage = `linear-gradient(
@@ -20,31 +19,21 @@ const backgroundImage = `linear-gradient(
   hsl(0deg 0% 100%) 100%
 );`
 
-export function BookPlaceholder(props: BookPlaceholderProps) {
+export function BookPlaceholderImage(props: BookPlaceholderProps) {
 	const {title, author} = props
 
 	return (
-		<Tooltip label={`${title} by ${author}`} hasArrow placement="top">
-			<AspectRatio ratio={1 / 1.6}>
-				<Box
-					as={RouterLink}
-					to="read"
-					backgroundImage={backgroundImage}
-					borderWidth="1px"
-					borderStyle="solid"
-					borderColor="gray.300"
-					aria-label={`${title} by ${author}`}
-				>
-					<Flex padding={4} boxSize="full" flexDirection="column" justifyContent="space-between" alignItems="center">
-						<Text wordBreak="break-word" textAlign="center">
-							{title}
-						</Text>
-						<Text wordBreak="break-word" textAlign="center">
-							{author}
-						</Text>
-					</Flex>
-				</Box>
-			</AspectRatio>
-		</Tooltip>
+		<AspectRatio ratio={1 / 1.6}>
+			<Box backgroundImage={backgroundImage} borderWidth="1px" borderStyle="solid" borderColor="gray.300">
+				<Flex padding={4} boxSize="full" flexDirection="column" justifyContent="space-between" alignItems="center">
+					<Text wordBreak="break-word" textAlign="center">
+						{title}
+					</Text>
+					<Text wordBreak="break-word" textAlign="center">
+						{author}
+					</Text>
+				</Flex>
+			</Box>
+		</AspectRatio>
 	)
 }

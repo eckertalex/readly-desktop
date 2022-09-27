@@ -4,7 +4,7 @@ import shallow from 'zustand/shallow'
 import {useEpubStore} from './use-epub-store'
 
 type Options = {
-	url: string
+	buffer: ArrayBuffer | string
 }
 
 type Location = {
@@ -16,7 +16,7 @@ type Location = {
 }
 
 export function useEpub(options: Options) {
-	const {url} = options
+	const {buffer} = options
 	const bookRef = useRef<Book>()
 	const renditionRef = useRef<Rendition>()
 	const viewerRef = useRef<HTMLDivElement>(null)
@@ -37,7 +37,7 @@ export function useEpub(options: Options) {
 			bookRef.current.destroy()
 		}
 
-		bookRef.current = Epub(url, {})
+		bookRef.current = Epub(buffer, {})
 
 		bookRef.current.opened.then(() => {
 			setLoading(false)
@@ -54,7 +54,7 @@ export function useEpub(options: Options) {
 		bookRef.current?.loaded.navigation.then(({toc}) => {
 			updateToc(toc)
 		})
-	}, [url, setMetadata, setCoverUrl, updateToc])
+	}, [buffer, setMetadata, setCoverUrl, updateToc])
 
 	const locationChange = useCallback(
 		(loc: Location) => {
@@ -83,6 +83,7 @@ export function useEpub(options: Options) {
 		renditionRef.current = bookRef.current?.renderTo(viewerRef.current, {
 			height: '100%',
 			width: '100%',
+			flow: 'paginated',
 		})
 
 		if (!renditionRef.current) {
